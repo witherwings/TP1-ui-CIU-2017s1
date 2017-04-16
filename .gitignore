@@ -1,0 +1,13 @@
+.classpath
+.settings
+.project
+.svn
+TP1-CIU-2017s1.iml
+*._trace
+*.java
+*.java_trace
+/target
+/bin
+/generated-sources
+/settings
+/.idea
