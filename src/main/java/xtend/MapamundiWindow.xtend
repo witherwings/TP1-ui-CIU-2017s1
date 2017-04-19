@@ -47,12 +47,15 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
         ]
         new Button(countryListPanel) =>[
             caption = "Nuevo"
+            width = 150
         ]
         new Button(countryListPanel) =>[
             caption = "Editar"
+            width = 150
         ]
         new Button(countryListPanel) =>[
             caption = "Eliminar"
+            width = 150
         ]
     }
 
