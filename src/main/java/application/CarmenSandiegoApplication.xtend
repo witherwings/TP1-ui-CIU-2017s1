@@ -1,19 +1,18 @@
 package application
 
+import AppModel.CaseFileAppModel
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
-import xtend.CarmenSanDiegoWindow
-import Game.CaseFile
-import AppModel.CaseFileAppModel
+import xtend.CarmenSandiegoWindow
 
-class CarmenSanDiegoApplication extends Application{
+class CarmenSandiegoApplication extends Application{
 
 	static def void main(String[] args) { 
-		new CarmenSanDiegoApplication().start()
+		new CarmenSandiegoApplication().start()
 	}
 
 	override protected Window<?> createMainWindow() {
-		return new CarmenSanDiegoWindow(this, new CaseFileAppModel)
+		return new CarmenSandiegoWindow(this, new CaseFileAppModel)
 	}
 	
 }

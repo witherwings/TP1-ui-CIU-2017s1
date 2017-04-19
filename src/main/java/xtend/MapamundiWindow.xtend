@@ -1,19 +1,17 @@
 package xtend
 
+import AppModel.MapamundiAppModel
+import Components.Title
+import WorldMap.Country
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.VerticalLayout
+import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.widgets.Label
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Button
-import org.uqbar.arena.widgets.List
-import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.widgets.Panel
-
-import AppModel.MapamundiAppModel
-import WorldMap.Country
-
-import Components.Title
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 
@@ -48,13 +46,13 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
             value <=> "selectedCountry"
         ]
         new Button(countryListPanel) =>[
-            caption = "New Country"
+            caption = "Nuevo"
         ]
         new Button(countryListPanel) =>[
-            caption = "Edit Country"
+            caption = "Editar"
         ]
         new Button(countryListPanel) =>[
-            caption = "Delete Country"
+            caption = "Eliminar"
         ]
     }
 

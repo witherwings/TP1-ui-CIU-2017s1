@@ -1,5 +1,0 @@
-package xtend
-
-class EditarCarmenSandiegoWindow {
-	
-}
