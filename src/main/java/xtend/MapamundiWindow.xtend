@@ -5,11 +5,13 @@ import Components.Title
 import WorldMap.Country
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.HorizontalLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
@@ -46,16 +48,16 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
             value <=> "selectedCountry"
         ]
         new Button(countryListPanel) =>[
-            caption = "Nuevo"
-            width = 150
+            setCaption("Nuevo")
+            .onClick [ |this.newCountry ]
         ]
         new Button(countryListPanel) =>[
-            caption = "Editar"
-            width = 150
+            setCaption("Editar")
+            .onClick [ | ]
         ]
         new Button(countryListPanel) =>[
-            caption = "Eliminar"
-            width = 150
+            setCaption("Eliminar")
+            .onClick [ | ]
         ]
     }
 
@@ -64,13 +66,13 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
         countryInfoPanel.layout = new VerticalLayout
 
         val nombrePanel = new Panel(countryInfoPanel)
-        nombrePanel.layout = new ColumnLayout(2)
+        nombrePanel.layout = new HorizontalLayout()
 
-        new Label(nombrePanel)=>[
+        new Label(countryInfoPanel)=>[
             setText("Nombre: ")
             fontSize = 16
         ]
-        new Label(nombrePanel)=>[
+        new Label(countryInfoPanel)=>[
             value <=> "selectedCountry.name"
             fontSize = 16
         ]
@@ -96,4 +98,12 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
             width = 270
         ]
     }
+    	
+	def newCountry() {
+		this.openDialog(new AddNewCountryWindow(this, new Country, this.modelObject))
+	}
+    
+    def openDialog(Dialog<?> dialog) {
+		dialog.open
+	}
 }

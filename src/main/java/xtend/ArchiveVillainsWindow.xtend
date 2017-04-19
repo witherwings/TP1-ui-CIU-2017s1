@@ -62,19 +62,19 @@ class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel>{
         val genderP = new Panel(villainIP)
         genderP.layout = new ColumnLayout(2)
         
-        new Label(nameP)=>[
+        new Label(villainIP)=>[
             setText("Nombre: ")
             fontSize = 12
         ]
-        new Label(nameP)=>[
+        new Label(villainIP)=>[
             value <=> "selectedVillain.name"
             fontSize = 12
         ]
-        new Label(genderP)=>[
+        new Label(villainIP)=>[
             setText("Sexo: ")
             fontSize = 12
         ]
-        new Label(genderP)=>[
+        new Label(villainIP)=>[
             value <=> "selectedVillain.gender"
             fontSize = 12
         ]
