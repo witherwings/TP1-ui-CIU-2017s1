@@ -5,6 +5,7 @@ import org.uqbar.arena.windows.Dialog;
 import org.uqbar.arena.windows.WindowOwner;
 
 import AppModel.VillainAppModel;
+import AppModel.EditHobbieAppModel;
 import org.uqbar.arena.widgets.Label
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
@@ -12,6 +13,7 @@ import org.uqbar.arena.widgets.TextBox
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.widgets.List
+import AppModel.EditHobbiesAppModel
 
 public class EditVillainWindow extends Dialog<VillainAppModel> {
 	
@@ -63,7 +65,7 @@ public class EditVillainWindow extends Dialog<VillainAppModel> {
 	}
 	
 	def openEditHobbies() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		new EditHobbiesWindow(this, new EditHobbiesAppModel(this.model.getSource().villain)).open
 	}
 	
 	def openEditSigns() {
