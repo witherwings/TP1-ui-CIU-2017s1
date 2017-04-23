@@ -2,7 +2,6 @@
 .settings
 .project
 .svn
-*.xtendbin
 .xtendbin
 TP1-CIU-2017s1.iml
 *._trace
