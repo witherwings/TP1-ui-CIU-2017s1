@@ -2,12 +2,12 @@ package xtend
 
 import AppModel.ArchiveVillainsAppModel
 import AppModel.CaseFileAppModel
-import AppModel.MapamundiAppModel
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
+import AppModel.WorldMapAppModel
 
 class CarmenSandiegoWindow extends SimpleWindow<CaseFileAppModel>{
 	
@@ -38,7 +38,7 @@ class CarmenSandiegoWindow extends SimpleWindow<CaseFileAppModel>{
 	}
 	
 	def openWorldMap() {
-		this.openWindow(new MapamundiWindow(this, new MapamundiAppModel))
+		this.openWindow(new WorldMapWindow(this, new WorldMapAppModel))
 	}
 	
 	def openWindow(Window<?> window) {

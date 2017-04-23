@@ -1,6 +1,5 @@
 package xtend
 
-import AppModel.MapamundiAppModel
 import Components.Title
 import WorldMap.Country
 import org.uqbar.arena.bindings.PropertyAdapter
@@ -16,11 +15,13 @@ import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import AppModel.WorldMapAppModel
 
-class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
+class WorldMapWindow extends SimpleWindow<WorldMapAppModel> {
 
-    new(WindowOwner parent, MapamundiAppModel model) {
+    new(WindowOwner parent, WorldMapAppModel model) {
         super(parent, model)
+        modelObject.updateList
     }
 
     override protected addActions(Panel actionsPanel) { /* no queremos usar este template default*/ }
@@ -53,14 +54,14 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
         ]
         new Button(countryListPanel) =>[
             setCaption("Editar")
-            .onClick [ | ]
+            .onClick [ | this.editCountry]
         ]
         new Button(countryListPanel) =>[
             setCaption("Eliminar")
-            .onClick [ | ]
+            .onClick [ | this.deleteCountry]
         ]
     }
-
+	
     def createCountryInfoPanel(Panel owner) {
         val countryInfoPanel = new Panel(owner)
         countryInfoPanel.layout = new VerticalLayout
@@ -87,7 +88,7 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
             setText("Conexiones: ")
         ]
         new List<Country>(countryInfoPanel) => [
-            (items <=> "selectedCountry.connectedCointryNames")
+            (items <=> "selectedCountry.connectedCountryNames")
             width = 270
         ]
         new Label(countryInfoPanel)=>[
@@ -98,9 +99,17 @@ class MapamundiWindow extends SimpleWindow<MapamundiAppModel> {
             width = 270
         ]
     }
+    
+    def deleteCountry() {
+		this.openDialog(new DeleteCountry(this, this.modelObject.selectedCountry, this.modelObject))
+	}
+    
+    def editCountry() {
+		this.openDialog(new EditCountry(this, this.modelObject.selectedCountry, this.modelObject))
+	}
     	
 	def newCountry() {
-		this.openDialog(new AddNewCountryWindow(this, new Country, this.modelObject))
+		this.openDialog(new AddNewCountryWindow(this, new Country(modelObject.getWorldMap), this.modelObject))
 	}
     
     def openDialog(Dialog<?> dialog) {
