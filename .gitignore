@@ -6,6 +6,7 @@ TP1-CIU-2017s1.iml
 *._trace
 *.java
 *.java_trace
+*.xtendbin
 /target
 /bin
 /generated-sources
