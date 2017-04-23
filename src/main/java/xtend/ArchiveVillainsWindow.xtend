@@ -12,6 +12,7 @@ import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.layout.ColumnLayout
 import AppModel.ArchiveVillainsAppModel
+import AppModel.NewVillainAppModel
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import AppModel.VillainAppModel
@@ -56,11 +57,11 @@ class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel> {
 	}
 	
 	def openEditVillainWindow() {
-		new EditVillainWindow(this, new VillainAppModel(this.model.getSource().selectedVillain)).open
+		new EditVillainWindow(this, new VillainAppModel(this.model.getSource.selectedVillain)).open
 	}
 	
 	def openNewVillainWindow() {
-		throw new UnsupportedOperationException("TODO: auto-generated method stub")
+		new NewVillainWindow(this, new NewVillainAppModel(new Villain()), this.model.getSource).open 
 	}
 	
 	def createVillainInfoPanel(Panel panel) {
