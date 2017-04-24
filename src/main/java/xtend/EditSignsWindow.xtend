@@ -10,6 +10,7 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.layout.HorizontalLayout
 
 class EditSignsWindow extends Dialog<EditSignsAppModel> {
 	
@@ -44,13 +45,16 @@ class EditSignsWindow extends Dialog<EditSignsAppModel> {
 		      onClick[ | this.addFromTextBox ]
 		      disableOnError
 		]
-        new Button(p) => [
+		
+		val buttonPanel = new Panel(p)
+		buttonPanel.layout = new HorizontalLayout
+        new Button(buttonPanel) => [
 		      caption = "Aceptar"
 		      setAsDefault
 		      onClick[ | this.accept ]
 		      disableOnError
 		]
-        new Button(p) => [
+        new Button(buttonPanel) => [
 		      caption = "Cancelar"
 		      setAsDefault
 		      onClick[ | this.cancel ]
@@ -59,15 +63,15 @@ class EditSignsWindow extends Dialog<EditSignsAppModel> {
 	}
 	
 	def addFromTextBox() {
-		this.model.getSource.addSign
+		this.modelObject.addSign
 	}
 	
 	def deleteSelected() {
-		this.model.getSource.removeSign
+		this.modelObject.removeSign
 	}
 	
 	override accept() {
-		this.model.getSource.accept
+		this.modelObject.accept
 		super.accept
 	}
 	

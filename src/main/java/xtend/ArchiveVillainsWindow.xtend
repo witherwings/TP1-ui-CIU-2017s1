@@ -21,6 +21,7 @@ class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel> {
 	
 	new(WindowOwner parent, ArchiveVillainsAppModel model) {
 		super(parent, model)
+		modelObject.updateList
 	}
 	
 	override protected addActions(Panel actionsPanel) { /* no queremos usar este template default*/ }
@@ -61,7 +62,7 @@ class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel> {
 	}
 	
 	def openNewVillainWindow() {
-		new NewVillainWindow(this, new NewVillainAppModel(new Villain()), this.model.getSource).open 
+		new NewVillainWindow(this, new Villain, this.modelObject).open 
 	}
 	
 	def createVillainInfoPanel(Panel panel) {

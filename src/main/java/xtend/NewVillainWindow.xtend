@@ -13,12 +13,13 @@ import AppModel.EditHobbiesAppModel
 import AppModel.EditSignsAppModel
 import AppModel.ArchiveVillainsAppModel
 import People.Villain
+import org.uqbar.arena.layout.HorizontalLayout
 
-class NewVillainWindow extends Dialog<NewVillainAppModel> {
+class NewVillainWindow extends Dialog<Villain> {
 	
 	ArchiveVillainsAppModel parentModel
 	
-	new(WindowOwner owner, NewVillainAppModel model, ArchiveVillainsAppModel parentModel) {
+	new(WindowOwner owner, Villain model, ArchiveVillainsAppModel parentModel) {
 		super(owner, model)
 		this.parentModel = parentModel
 	}
@@ -26,19 +27,22 @@ class NewVillainWindow extends Dialog<NewVillainAppModel> {
 	override protected createFormPanel(Panel p) {
 		this.title = "Crear Villano"
 		new Label(p).text = "Nombre: "
-		new TextBox(p) => [ value <=> "villain.name"; width = 200; ]
+		new TextBox(p) => [ value <=> "name"; width = 200; ]
 		new Label(p).text = "Sexo: "
-		new TextBox(p) => [ value <=> "villain.gender"; width = 200; ]
+		new TextBox(p) => [ value <=> "gender"; width = 200; ]
 		new Label(p).text = "Senhas particulares"
 		this.createSignsSection(p)
 		this.createHobbiesSection(p)
-		new Button(p) => [
+		
+		val buttonPanel = new Panel(p)
+		buttonPanel.layout = new HorizontalLayout
+		new Button(buttonPanel) => [
 		      caption = "Aceptar"
 		      setAsDefault
 		      onClick[ | this.accept ]
 		      disableOnError
 		]
-        new Button(p) => [
+        new Button(buttonPanel) => [
 		      caption = "Cancelar"
 		      setAsDefault
 		      onClick[ | this.cancel ]
@@ -49,7 +53,7 @@ class NewVillainWindow extends Dialog<NewVillainAppModel> {
 	def void createSignsSection(Panel owner) {
 		new Label(owner).text = "Senhas: "
 		new List<String>(owner) => [
-            (items <=> "villain.signs")
+            (items <=> "signs")
             height = 100
             width = 270
         ]
@@ -64,7 +68,7 @@ class NewVillainWindow extends Dialog<NewVillainAppModel> {
 	def void createHobbiesSection(Panel owner) {
 		new Label(owner).text = "Hobbies: "
 		new List<String>(owner) => [
-            (items <=> "villain.hobbies")
+            (items <=> "hobbies")
             height = 100
             width = 270
         ]
@@ -77,15 +81,15 @@ class NewVillainWindow extends Dialog<NewVillainAppModel> {
 	}
 	
 	def openEditHobbies() {
-		new EditHobbiesWindow(this, new EditHobbiesAppModel(this.model.getSource.villain)).open
+		new EditHobbiesWindow(this, new EditHobbiesAppModel(this.modelObject)).open
 	}
 	
 	def openEditSigns() {
-		new EditSignsWindow(this, new EditSignsAppModel(this.model.getSource.villain)).open 
+		new EditSignsWindow(this, new EditSignsAppModel(this.modelObject)).open
 	}
 	
 	override accept() {
-		this.parentModel.addVillain(this.model.getSource.villain)
+		this.parentModel.addVillain(this.modelObject)
 		super.accept()
 	}
 	

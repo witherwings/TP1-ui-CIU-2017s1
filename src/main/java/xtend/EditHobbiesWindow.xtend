@@ -10,6 +10,7 @@ import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
+import org.uqbar.arena.layout.HorizontalLayout
 
 class EditHobbiesWindow extends Dialog<EditHobbiesAppModel> {
 	
@@ -44,13 +45,16 @@ class EditHobbiesWindow extends Dialog<EditHobbiesAppModel> {
 		      onClick[ | this.addFromTextBox ]
 		      disableOnError
 		]
-        new Button(p) => [
+		
+		val buttonPanel = new Panel(p)
+		buttonPanel.layout = new HorizontalLayout
+        new Button(buttonPanel) => [
 		      caption = "Aceptar"
 		      setAsDefault
 		      onClick[ | this.accept ]
 		      disableOnError
 		]
-        new Button(p) => [
+        new Button(buttonPanel) => [
 		      caption = "Cancelar"
 		      setAsDefault
 		      onClick[ | this.cancel ]

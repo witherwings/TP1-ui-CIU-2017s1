@@ -14,6 +14,7 @@ import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.widgets.List
 import AppModel.EditHobbiesAppModel
 import AppModel.EditSignsAppModel
+import org.uqbar.arena.layout.HorizontalLayout
 
 public class EditVillainWindow extends Dialog<VillainAppModel> {
 	
@@ -60,6 +61,21 @@ public class EditVillainWindow extends Dialog<VillainAppModel> {
 		      caption = "Editar hobbies"
 		      setAsDefault
 		      onClick[ | this.openEditHobbies  ]
+		      disableOnError
+		]
+		
+		val buttonPanel = new Panel(owner)
+		buttonPanel.layout = new HorizontalLayout
+        new Button(buttonPanel) => [
+		      caption = "Aceptar"
+		      setAsDefault
+		      onClick[ | this.accept ]
+		      disableOnError
+		]
+        new Button(buttonPanel) => [
+		      caption = "Cancelar"
+		      setAsDefault
+		      onClick[ | this.cancel ]
 		      disableOnError
 		]
 	}
