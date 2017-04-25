@@ -3,7 +3,6 @@ package xtend
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
 import org.uqbar.arena.widgets.Panel
-import AppModel.NewVillainAppModel
 import org.uqbar.arena.widgets.Label
 import org.uqbar.arena.widgets.TextBox
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
@@ -22,10 +21,10 @@ class NewVillainWindow extends Dialog<Villain> {
 	new(WindowOwner owner, Villain model, ArchiveVillainsAppModel parentModel) {
 		super(owner, model)
 		this.parentModel = parentModel
+		this.title = "Expedientes - Crear Villano"
 	}
 	
 	override protected createFormPanel(Panel p) {
-		this.title = "Crear Villano"
 		new Label(p).text = "Nombre: "
 		new TextBox(p) => [ value <=> "name"; width = 200; ]
 		new Label(p).text = "Sexo: "
@@ -93,4 +92,16 @@ class NewVillainWindow extends Dialog<Villain> {
 		super.accept()
 	}
 	
+}
+
+public class EditVillainWindow extends NewVillainWindow{
+	
+	new(WindowOwner owner, Villain model, ArchiveVillainsAppModel parentModel) {
+		super(owner, model, parentModel)
+		this.title = "Expedientes - Editar Villano"
+	}
+	
+	override accept(){
+		this.close
+	}
 }

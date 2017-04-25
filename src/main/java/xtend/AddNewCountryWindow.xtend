@@ -33,10 +33,8 @@ class AddNewCountryWindow extends Dialog<Country> {
 	override protected createFormPanel(Panel mainPanel) {
 		val newCountryP1 = new Panel(mainPanel)
 		newCountryP1.layout = new ColumnLayout(2)
-		
 		new Label(newCountryP1).text = "Nombre"
 		new TextBox(newCountryP1).value <=> "name"
-
 		new Label(newCountryP1).text = "Caracteristicas"
 		new Button(newCountryP1)
 			.setCaption("Editar caracteristicas")

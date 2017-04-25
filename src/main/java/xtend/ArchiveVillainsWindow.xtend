@@ -1,21 +1,19 @@
 package xtend
 
+import AppModel.ArchiveVillainsAppModel
 import Components.Title
 import People.Villain
 import org.uqbar.arena.bindings.PropertyAdapter
-import org.uqbar.arena.windows.SimpleWindow
-import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.widgets.Panel
-import org.uqbar.arena.widgets.List
+import org.uqbar.arena.layout.ColumnLayout
+import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Label
-import org.uqbar.arena.layout.VerticalLayout
-import org.uqbar.arena.layout.ColumnLayout
-import AppModel.ArchiveVillainsAppModel
-import AppModel.NewVillainAppModel
+import org.uqbar.arena.widgets.List
+import org.uqbar.arena.widgets.Panel
+import org.uqbar.arena.windows.SimpleWindow
+import org.uqbar.arena.windows.WindowOwner
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import AppModel.VillainAppModel
 
 class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel> {
 	
@@ -58,7 +56,7 @@ class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel> {
 	}
 	
 	def openEditVillainWindow() {
-		new EditVillainWindow(this, new VillainAppModel(this.model.getSource.selectedVillain)).open
+		new EditVillainWindow(this, this.modelObject.selectedVillain, this.modelObject).open
 	}
 	
 	def openNewVillainWindow() {

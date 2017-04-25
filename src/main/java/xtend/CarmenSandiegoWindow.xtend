@@ -1,17 +1,17 @@
 package xtend
 
 import AppModel.ArchiveVillainsAppModel
-import AppModel.CaseFileAppModel
 import org.uqbar.arena.widgets.Button
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.SimpleWindow
 import org.uqbar.arena.windows.Window
 import org.uqbar.arena.windows.WindowOwner
 import AppModel.WorldMapAppModel
+import AppModel.CaseFilesAppModel
 
-class CarmenSandiegoWindow extends SimpleWindow<CaseFileAppModel>{
+class CarmenSandiegoWindow extends SimpleWindow<CaseFilesAppModel>{
 	
-	new(WindowOwner parent, CaseFileAppModel model) {
+	new(WindowOwner parent, CaseFilesAppModel model) {
 		super(parent, model)
 		title = "¿Donde esta Carmen Sandiego?"
 		taskDescription = "¿Que haremos ahora detective?"
@@ -22,7 +22,7 @@ class CarmenSandiegoWindow extends SimpleWindow<CaseFileAppModel>{
 	override protected addActions(Panel actionsPanel) { 	
 		new Button(actionsPanel) 
 		.setCaption("Resolver Misterio")
-		.onClick [ | ]
+		.onClick [ |this.solveMystery ]
 		
 		new Button(actionsPanel) 
 		.setCaption("Mapamundi")
@@ -31,6 +31,10 @@ class CarmenSandiegoWindow extends SimpleWindow<CaseFileAppModel>{
 		new Button(actionsPanel) 
 		.setCaption("Expedientes")
 		.onClick [ |this.openArchiveVillains]
+	}
+	
+	def solveMystery() {
+		this.openWindow(new NewGameWindow(this, new CaseFilesAppModel))
 	}
 	
 	def openArchiveVillains() {

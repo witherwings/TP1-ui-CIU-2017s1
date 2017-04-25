@@ -1,6 +1,6 @@
 package application
 
-import AppModel.CaseFileAppModel
+import AppModel.CaseFilesAppModel
 import org.uqbar.arena.Application
 import org.uqbar.arena.windows.Window
 import xtend.CarmenSandiegoWindow
@@ -12,7 +12,7 @@ class CarmenSandiegoApplication extends Application{
 	}
 
 	override protected Window<?> createMainWindow() {
-		return new CarmenSandiegoWindow(this, new CaseFileAppModel)
+		return new CarmenSandiegoWindow(this, new CaseFilesAppModel)
 	}
 	
 }
