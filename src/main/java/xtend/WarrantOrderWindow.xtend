@@ -41,6 +41,7 @@ class WarrantOrderWindow extends Dialog<CaseFile>{
 	
 	override accept(){
 		this.modelObject.archives.warrant = "Orden ya emitida: " + this.modelObject.archives.selectedVillain.name
+		this.modelObject.archives.setResponsible(this.modelObject.archives.selectedVillain)
 		this.close
 	}
 	
