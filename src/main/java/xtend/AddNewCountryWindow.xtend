@@ -35,6 +35,7 @@ class AddNewCountryWindow extends Dialog<Country> {
 		newCountryP1.layout = new ColumnLayout(2)
 		new Label(newCountryP1).text = "Nombre"
 		new TextBox(newCountryP1).value <=> "name"
+			
 		new Label(newCountryP1).text = "Caracteristicas"
 		new Button(newCountryP1)
 			.setCaption("Editar caracteristicas")
