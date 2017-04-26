@@ -25,10 +25,10 @@ class TravelWindow extends Dialog<CaseFile> {
 		val mainP = new Panel(mainPanel)
 		mainP.layout = new VerticalLayout
 		
-		new Label(mainP).text = "Estas en: " + modelObject.actualCountry.name
+		new Label(mainP).text = "Estas en: " + modelObject.currentCountry.name
 		new Label(mainP).text = "Posibles destinos"
 		new List<Country>(mainP) => [
-			(items <=> "actualCountry.connectedCountries").adapter = new PropertyAdapter(Country, "name")
+			(items <=> "currentCountry.connectedCountries").adapter = new PropertyAdapter(Country, "name")
 			height = 50
 			width = 250
 			value <=> "nextCountry"
@@ -45,17 +45,17 @@ class TravelWindow extends Dialog<CaseFile> {
 	}
 	
 	def travelBack() {
-		this.modelObject.addfailedDestination(this.modelObject.actualCountry)
-		this.modelObject.actualCountry = this.modelObject.lastCountry
+		this.modelObject.addfailedDestination(this.modelObject.currentCountry)
+		this.modelObject.currentCountry = this.modelObject.lastCountry
 		this.modelObject.lastCountry = null
 		this.modelObject.nextCountry = null
 		this.close
 	}
 	
 	def travelToSelectedCountry() {
-		this.modelObject.addSuccesfulDestination(this.modelObject.actualCountry)
-		this.modelObject.lastCountry = this.modelObject.actualCountry
-		this.modelObject.actualCountry = this.modelObject.nextCountry
+		this.modelObject.addSuccesfulDestination(this.modelObject.currentCountry)
+		this.modelObject.lastCountry = this.modelObject.currentCountry
+		this.modelObject.currentCountry = this.modelObject.nextCountry
 		this.modelObject.nextCountry = null
 		this.close
 	}

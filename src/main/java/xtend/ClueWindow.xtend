@@ -15,13 +15,13 @@ class ClueWindow extends Dialog<CaseFile>{
 		super(owner, model)
 		this.placeNumber = placeNumber
 		this.title = model.caseName
-		this.taskDescription = "Estas visitando: " + model.actualCountry.places.get(placeNumber).getPlaceName
+		this.taskDescription = "Estas visitando: " + model.currentCountry.places.get(placeNumber).getPlaceName
 	}
 	
 	override protected createFormPanel(Panel mainPanel) {
 		val mainP = new Panel(mainPanel)
 		
-		val place = this.modelObject.actualCountry.places.get(placeNumber)
+		val place = this.modelObject.currentCountry.places.get(placeNumber)
 		new Label(mainP).text = place.occupant.getClue(this.modelObject, place)
 		
 		new Button(mainP)
@@ -30,7 +30,7 @@ class ClueWindow extends Dialog<CaseFile>{
 	}
 	
 	override accept(){
-		if(this.modelObject.actualCountry.places.get(placeNumber).occupant.isVillain())
+		if(this.modelObject.currentCountry.places.get(placeNumber).occupant.isVillain())
 			new EndGameWindow(this, this.modelObject).open
 		this.close
 	}

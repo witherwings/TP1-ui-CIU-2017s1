@@ -91,7 +91,7 @@ class EditConnectionsFromCountryWindow extends EditNewCountryWindow{
 		val featuresP = new Panel(panel)
 		new Title(featuresP, "Conexiones")
         new List<String>(featuresP) => [
-            (items <=> "country.connectedCountries")
+            (items <=> "country.connectedCountries").adapter = new PropertyAdapter(Country, "name")
             height = 50
             width = 250
             value <=> "selectedConnection"
@@ -136,7 +136,7 @@ class EditPlacesFromCountryWindow extends EditNewCountryWindow{
 		val featuresP = new Panel(panel)
 		new Title(featuresP, "Lugares de Interes")
         new List<String>(featuresP) => [
-            (items <=> "country.places")
+            (items <=> "country.places").adapter = new PropertyAdapter(CommonPlace, "placeName")
             height = 50
             width = 250
             value <=> "selectedPlace"

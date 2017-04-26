@@ -25,8 +25,8 @@ class EndGameWindow extends Dialog<CaseFile>{
 		val mainP = new Panel(panel)
 		
 		new Label(mainP).text = "Malas noticias :("
-		new Label(mainP).text = "Ha detenido a " + this.modelObject.archives.responsible.name 
-			+ " pero usted tenia una orden contra " + this.modelObject.responsible.name
+		new Label(mainP).text = "Ha detenido a " + this.modelObject.responsible.name 
+			+ " pero usted tenia una orden contra " + this.modelObject.archives.responsible.name
 		new Label(mainP).text = "Lamentablemente este crimen quedara impune"
 		
 		new Button(mainP)

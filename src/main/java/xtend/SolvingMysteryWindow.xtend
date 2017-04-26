@@ -31,7 +31,7 @@ class SolvingMysteryWindow extends Dialog<CaseFile> {
 
 		val leftColumn = new Panel(columnPanel)
 
-		new Label(leftColumn).text = "Estas en: " + modelObject.actualCountry.name
+		new Label(leftColumn).text = "Estas en: " + modelObject.currentCountry.name
 
 		new Button(leftColumn)
 			.setCaption("Orden de Arresto")
@@ -49,20 +49,24 @@ class SolvingMysteryWindow extends Dialog<CaseFile> {
 		new Label(rigthColumn).text = "Lugares"
 
 		new Button(rigthColumn)
-			.setCaption(modelObject.actualCountry.places.get(0).getPlaceName)
+			.setCaption(modelObject.currentCountry.places.get(0).getPlaceName)
 			.onClick[| this.getClue(0)]
 		new Button(rigthColumn)
-			.setCaption(modelObject.actualCountry.places.get(1).getPlaceName)
+			.setCaption(modelObject.currentCountry.places.get(1).getPlaceName)
 			.onClick[| this.getClue(1)]
 		new Button(rigthColumn)
-			.setCaption(modelObject.actualCountry.places.get(2).getPlaceName)
+			.setCaption(modelObject.currentCountry.places.get(2).getPlaceName)
 			.onClick[| this.getClue(2)]
 
 		val panel1 = new Panel(main)
 		panel1.layout = new VerticalLayout
 
 		new Label(panel1).text = "Recorrido criminal:"
-		new Label(panel1).text = ""
+		new List<Country>(panel1) => [
+			(items <=> "criminalDestinations").adapter = new PropertyAdapter(Country, "name")
+			height = 50
+			width = 250
+		]
 		new Label(panel1).text = "Destinos fallidos:"
 		new Title(panel1,"Pais")
 		new List<Country>(panel1) => [
