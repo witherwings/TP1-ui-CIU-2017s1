@@ -32,10 +32,15 @@ abstract class EditNewCountryWindow extends Dialog<CountryAppModel>{
 		
 		new Button(mainPanel)
 			.setCaption("Aceptar")
-			.onClick [ | this.accept ]
+			.onClick [ | this.editCountry ]
 			.setAsDefault
 			.disableOnError
 	}
+	
+	def void editCountry(){
+		this.accept
+	}
+	
 	abstract def void addFormPanel(Panel panel)
 	abstract def void addFormPanel2(Panel panel)
 }
@@ -74,8 +79,9 @@ class EditFeaturesFromCountryWindow extends EditNewCountryWindow {
 		this.modelObject.getCountry.removeSelectedFeature(string)
 	}
 
-	def void addNewFeature(){
+	def void addNewFeature(){		
 		this.modelObject.getCountry.addFeature(this.modelObject.getNewFeature)
+		this.modelObject.newFeature = ""
 	}
 	
 }
@@ -106,7 +112,7 @@ class EditConnectionsFromCountryWindow extends EditNewCountryWindow{
 		val featuresP2 = new Panel(panel)
 		new Selector<Country>(featuresP2) => [
 			allowNull = false
-			val itemsProperty = items <=> "country.map.countries"
+			val itemsProperty = items <=> "notConnectedCountries"
 			itemsProperty.adapter = 
 			    new PropertyAdapter(Country, "name")
 			value <=> "newConnection"
@@ -122,6 +128,8 @@ class EditConnectionsFromCountryWindow extends EditNewCountryWindow{
 	
 	def addNewConnection() {
 		this.modelObject.getCountry.addCountry(this.modelObject.getNewConnection)
+		this.modelObject.newConnection = null
+		this.modelObject.update
 	}	
 }
 
@@ -167,5 +175,6 @@ class EditPlacesFromCountryWindow extends EditNewCountryWindow{
 	
 	def addNewPlace() {
 		this.modelObject.getCountry.addPlace(this.modelObject.getSelectedPlace)
+		this.modelObject.selectedPlace = null
 	}		
 }

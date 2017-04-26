@@ -125,6 +125,8 @@ class EditCountry extends AddNewCountryWindow{
 	}
 	
 	override accept(){
+		var map = owner as WorldMapWindow
+		map.update()
 		this.close
 	}
 }
@@ -144,6 +146,7 @@ class DeleteCountry extends AddNewCountryWindow{
 	
 	override accept(){
 		mapModel.removeCountry(mapModel.selectedCountry)
+		mapModel.updateList
 		this.close
 	}
 }
