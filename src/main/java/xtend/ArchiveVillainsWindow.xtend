@@ -45,11 +45,17 @@ class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel> {
             width = 270
             value <=> "selectedVillain"
         ]
-        new Button(villainLP) =>[
+        
+        this.addLastPanel(villainLP)
+        
+	}
+	
+	def addLastPanel(Panel panel) {
+		new Button(panel) =>[
             caption = "Nuevo"
 			onClick [ | this.openNewVillainWindow ]
         ]
-        new Button(villainLP) =>[
+        new Button(panel) =>[
             caption = "Editar"
             onClick [ | this.openEditVillainWindow ]
         ]
@@ -105,5 +111,15 @@ class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel> {
             width = 270
         ]
 	}
+	
+}
+
+class ArchiveVillainsMysteryWindow extends ArchiveVillainsWindow{
+	
+	new(WindowOwner parent, ArchiveVillainsAppModel model) {
+		super(parent, model)
+	}
+	
+	override addLastPanel(Panel panel){}
 	
 }

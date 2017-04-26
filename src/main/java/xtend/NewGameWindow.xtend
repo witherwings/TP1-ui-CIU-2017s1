@@ -34,7 +34,10 @@ class NewGameWindow extends SimpleWindow<CaseFilesAppModel> {
 		val textPanel = new Panel(mainP)
 		textPanel.layout = new VerticalLayout
 		new Label(textPanel).text = caseF.report
-		new Button(textPanel).setCaption("Aceptar el caso").onClick[|this.solvingCase].setAsDefault.disableOnError
+		new Button(textPanel)
+			.setCaption("Aceptar el caso")
+			.onClick[ |this.solvingCase]
+			.setAsDefault.disableOnError
 
 	}
 
