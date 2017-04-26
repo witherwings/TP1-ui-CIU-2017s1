@@ -89,6 +89,7 @@ class NewVillainWindow extends Dialog<Villain> {
 	
 	override accept() {
 		this.parentModel.addVillain(this.modelObject)
+		this.parentModel.updateList()
 		super.accept()
 	}
 	
@@ -96,12 +97,15 @@ class NewVillainWindow extends Dialog<Villain> {
 
 public class EditVillainWindow extends NewVillainWindow{
 	
+	
 	new(WindowOwner owner, Villain model, ArchiveVillainsAppModel parentModel) {
 		super(owner, model, parentModel)
 		this.title = "Expedientes - Editar Villano"
 	}
 	
 	override accept(){
+		var archive = owner as ArchiveVillainsWindow
+		archive.updateList
 		this.close
 	}
 }

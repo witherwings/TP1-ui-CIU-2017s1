@@ -112,7 +112,12 @@ class ArchiveVillainsWindow extends SimpleWindow<ArchiveVillainsAppModel> {
         ]
 	}
 	
+	def updateList(){
+		this.modelObject.updateList
+	}
+	
 }
+
 
 class ArchiveVillainsMysteryWindow extends ArchiveVillainsWindow{
 	
