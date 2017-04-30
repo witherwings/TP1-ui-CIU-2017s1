@@ -12,11 +12,9 @@ import Game.CaseFile
 
 class NewGameWindow extends SimpleWindow<CaseFilesAppModel> {
 
-	CaseFile caseF;
-
 	new(WindowOwner parent, CaseFilesAppModel model) {
 		super(parent, model)
-		modelObject.updateList
+		modelObject.initializeCaseFiles
 	}
 
 	override protected addActions(Panel actionsPanel) { /* no queremos usar este template default*/ }
@@ -24,8 +22,7 @@ class NewGameWindow extends SimpleWindow<CaseFilesAppModel> {
 	override protected createFormPanel(Panel mainPanel) { /* no queremos usar este template default */ }
 
 	override createMainTemplate(Panel mainP) {
-		caseF = this.modelObject.randomNewCase
-		this.title = caseF.caseName
+		this.title = this.modelObject.caseF.caseName
 		mainP.layout = new VerticalLayout
 
 		val topPanel = new Panel(mainP)
@@ -33,7 +30,7 @@ class NewGameWindow extends SimpleWindow<CaseFilesAppModel> {
 
 		val textPanel = new Panel(mainP)
 		textPanel.layout = new VerticalLayout
-		new Label(textPanel).text = caseF.report
+		new Label(textPanel).text = this.modelObject.caseF.report
 		new Button(textPanel)
 			.setCaption("Aceptar el caso")
 			.onClick[ |this.solvingCase]
@@ -42,7 +39,7 @@ class NewGameWindow extends SimpleWindow<CaseFilesAppModel> {
 	}
 
 	def solvingCase() {
-		this.openDialog(new SolvingMysteryWindow(this, caseF))
+		this.openDialog(new SolvingMysteryWindow(this, this.modelObject))
 	}
 
 	def openDialog(Dialog<?> dialog) {

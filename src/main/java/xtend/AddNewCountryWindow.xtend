@@ -17,6 +17,7 @@ import AppModel.CountryAppModel
 import WorldMap.CommonPlace
 import AppModel.WorldMapAppModel
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.commons.model.UserException
 
 //Revisar el tema de agregar una base de datos de paises
 
@@ -111,9 +112,19 @@ class AddNewCountryWindow extends Dialog<Country> {
 	}
 	
 	override accept(){
+		this.validate()
 		this.mapModel.addCountry(this.modelObject)
 		mapModel.updateList
 		super.accept
+	}
+	
+	def validate() {
+		if(this.modelObject.name == null){
+			throw new UserException("El nombre no puede ser nulo")
+		}
+		if(this.mapModel.checkCountryName(this.modelObject.name)){
+			throw new UserException("El pais ya existe")
+		}
 	}
 
 }

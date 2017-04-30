@@ -12,6 +12,7 @@ import org.uqbar.arena.windows.WindowOwner
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
+import org.uqbar.arena.layout.ColumnLayout
 
 class WarrantOrderWindow extends Dialog<CaseFile>{
 	
@@ -26,7 +27,11 @@ class WarrantOrderWindow extends Dialog<CaseFile>{
 		mainP.layout = new VerticalLayout
 		this.modelObject.archives.selectedVillain = this.modelObject.archives.villains.get(0)
 		
-		new Label(mainP).text = "Orden de arresto emitida contra: " + this.modelObject.archives.selectedVillain.name
+		val warrantPanel = new Panel(mainP)
+		warrantPanel.layout = new ColumnLayout(2)
+		new Label(warrantPanel).text = "Orden de arresto emitida contra: "
+		new Label(warrantPanel).bindValueToProperty("archives.selectedVillain.name")
+	
 		new Selector<Villain>(mainP) => [
 			allowNull = false
 			val itemsProperty = items <=> "archives.villains"

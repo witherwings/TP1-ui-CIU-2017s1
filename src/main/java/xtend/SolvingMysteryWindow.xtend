@@ -1,7 +1,9 @@
 package xtend
 
-import Game.CaseFile
+import AppModel.CaseFilesAppModel
+import Components.Title
 import WorldMap.Country
+import org.uqbar.arena.bindings.PropertyAdapter
 import org.uqbar.arena.layout.ColumnLayout
 import org.uqbar.arena.layout.VerticalLayout
 import org.uqbar.arena.widgets.Button
@@ -10,16 +12,14 @@ import org.uqbar.arena.widgets.List
 import org.uqbar.arena.widgets.Panel
 import org.uqbar.arena.windows.Dialog
 import org.uqbar.arena.windows.WindowOwner
-import org.uqbar.arena.bindings.PropertyAdapter
 
 import static extension org.uqbar.arena.xtend.ArenaXtendExtensions.*
-import Components.Title
 
-class SolvingMysteryWindow extends Dialog<CaseFile> {
+class SolvingMysteryWindow extends Dialog<CaseFilesAppModel> {
 
-	new(WindowOwner owner, CaseFile model) {
+	new(WindowOwner owner, CaseFilesAppModel model) {
 		super(owner, model)
-		title = "Resolviendo: " + modelObject.caseName
+		title = "Resolviendo: " + modelObject.caseF.caseName
 	}
 
 	override protected createFormPanel(Panel mainPanel) {
@@ -31,12 +31,15 @@ class SolvingMysteryWindow extends Dialog<CaseFile> {
 
 		val leftColumn = new Panel(columnPanel)
 
-		new Label(leftColumn).text = "Estas en: " + modelObject.currentCountry.name
+		val locationPanel = new Panel(leftColumn)
+		locationPanel.layout = new ColumnLayout(2)
+		new Label(locationPanel).text = "Estas en: "
+		new Label(locationPanel).bindValueToProperty("currentCountry.name")
 
 		new Button(leftColumn)
 			.setCaption("Orden de Arresto")
 			.onClick[ | this.getWarrantWindow]
-		new Label(leftColumn).text = modelObject.archives.warrant
+		new Label(leftColumn).bindValueToProperty("caseF.archives.warrant")
 		new Button(leftColumn)
 			.setCaption("Viajar")
 			.onClick[ | this.travelWindow]
@@ -49,39 +52,39 @@ class SolvingMysteryWindow extends Dialog<CaseFile> {
 		new Label(rigthColumn).text = "Lugares"
 
 		new Button(rigthColumn)
-			.setCaption(modelObject.currentCountry.places.get(0).getPlaceName)
 			.onClick[| this.getClue(0)]
+			.bindCaptionToProperty("currentCountry.firstPlace.placeName")
 		new Button(rigthColumn)
-			.setCaption(modelObject.currentCountry.places.get(1).getPlaceName)
 			.onClick[| this.getClue(1)]
+			.bindCaptionToProperty("currentCountry.secondPlace.placeName")
 		new Button(rigthColumn)
-			.setCaption(modelObject.currentCountry.places.get(2).getPlaceName)
 			.onClick[| this.getClue(2)]
+			.bindCaptionToProperty("currentCountry.thirdPlace.placeName")
 
 		val panel1 = new Panel(main)
 		panel1.layout = new VerticalLayout
 
 		new Label(panel1).text = "Recorrido criminal:"
 		new List<Country>(panel1) => [
-			(items <=> "criminalDestinations").adapter = new PropertyAdapter(Country, "name")
+			(items <=> "caseF.criminalDestinations").adapter = new PropertyAdapter(Country, "name")
 			height = 50
 			width = 250
 		]
 		new Label(panel1).text = "Destinos fallidos:"
 		new Title(panel1,"Pais")
 		new List<Country>(panel1) => [
-			(items <=> "failedDestinations").adapter = new PropertyAdapter(Country, "name")
+			(items <=> "caseF.failedDestinations").adapter = new PropertyAdapter(Country, "name")
 			height = 50
 			width = 250
 		]
 	}
 	
 	def getClue(int placeNumber) {
-		this.openDialog(new ClueWindow(this, this.modelObject, placeNumber))
+		this.openDialog(new ClueWindow(this, this.modelObject.caseF, placeNumber))
 	}
 	
 	def openArchives() {
-		new ArchiveVillainsMysteryWindow(this, this.modelObject.archives).open
+		new ArchiveVillainsMysteryWindow(this, this.modelObject.caseF.archives).open
 	}
 	
 	def travelWindow() {
@@ -89,7 +92,7 @@ class SolvingMysteryWindow extends Dialog<CaseFile> {
 	}
 	
 	def getWarrantWindow() {
-		this.openDialog(new WarrantOrderWindow(this, this.modelObject))
+		this.openDialog(new WarrantOrderWindow(this, this.modelObject.caseF))
 	}
 	
 	def openDialog(Dialog<?> dialog) {

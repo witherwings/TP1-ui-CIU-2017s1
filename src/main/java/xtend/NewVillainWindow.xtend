@@ -13,6 +13,7 @@ import AppModel.EditSignsAppModel
 import AppModel.ArchiveVillainsAppModel
 import People.Villain
 import org.uqbar.arena.layout.HorizontalLayout
+import org.uqbar.commons.model.UserException
 
 class NewVillainWindow extends Dialog<Villain> {
 	
@@ -29,7 +30,7 @@ class NewVillainWindow extends Dialog<Villain> {
 		new TextBox(p) => [ value <=> "name"; width = 200; ]
 		new Label(p).text = "Sexo: "
 		new TextBox(p) => [ value <=> "gender"; width = 200; ]
-		new Label(p).text = "Senhas particulares"
+		new Label(p).text = "Señas particulares"
 		this.createSignsSection(p)
 		this.createHobbiesSection(p)
 		
@@ -50,14 +51,14 @@ class NewVillainWindow extends Dialog<Villain> {
 	}	
 	
 	def void createSignsSection(Panel owner) {
-		new Label(owner).text = "Senhas: "
+		new Label(owner).text = "Señas: "
 		new List<String>(owner) => [
             (items <=> "signs")
             height = 100
             width = 270
         ]
 		new Button(owner) => [
-		      caption = "Editar senhas particulares"
+		      caption = "Editar señas particulares"
 		      setAsDefault
 		      onClick[ | this.openEditSigns  ]
 		      disableOnError
@@ -88,9 +89,22 @@ class NewVillainWindow extends Dialog<Villain> {
 	}
 	
 	override accept() {
+		this.validate()
 		this.parentModel.addVillain(this.modelObject)
 		this.parentModel.updateList()
 		super.accept()
+	}
+	
+	def validate() {
+		if(this.modelObject.name == null){
+			throw new UserException("El nombre no puede ser nulo")
+		}
+		if(this.modelObject.gender == null){
+			throw new UserException("El genero no puede ser nulo")
+		}
+		if(this.modelObject.gender != "Masculino" && this.modelObject.gender != "Femenino"){
+			throw new UserException("Genero incorrecto. Seleccione entre 'Masculino' y 'Femenino'")
+		}
 	}
 	
 }
